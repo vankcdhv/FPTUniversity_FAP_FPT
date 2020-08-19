@@ -3,6 +3,7 @@ const https = require("https");
 const request = require("request");
 const { response } = require("express");
 const cheerio = require("cheerio");
+const { lstat } = require("fs");
 
 module.exports = {
   get: (req, res) => {
@@ -21,12 +22,23 @@ module.exports = {
         } else {
           $ = cheerio.load(body);
           var list = $(body).find("td");
-          var object = {};
-          object.title=$(list[20]).text();
-          object.mark=$(list[22]).text();
 
-          console.log(object);
-          console.log($(list[26]).text());
+          var listTerm = [];
+          for (var i = 3; i < 12; i++) {
+            listTerm.push($(list[i]).text());
+          }
+          var listCourse = [];
+          for (var i = 13; i < 18; i++) {
+            listCourse.push($(list[i]).text());
+          }
+          console.log(listTerm);
+          console.log(listCourse);
+
+          for (var i = 18; i < list.length; i++) {
+            console.log(i);
+            console.log($(list[i]).text());
+          }
+
           res.render("home", { html: body });
         }
       }

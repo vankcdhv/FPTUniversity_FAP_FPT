@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(app) {
-  let productsCtrl = require('./controllers/ProductsController');
-  let requestCtrl = require('./controllers/RequestsController');
+  let productsCtrl = require('../controllers/ProductsController');
+  let markReportCtrl = require('../markreport/controller');
 
   // todoList Routes
   app.route('/products')
@@ -12,6 +12,6 @@ module.exports = function(app) {
     .get(productsCtrl.detail)
     .put(productsCtrl.update)
     .delete(productsCtrl.delete);
-  app.route('/fap')
+  app.route('/fap/markreport')
     .get(requestCtrl.get);
 };
